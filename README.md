@@ -26,6 +26,11 @@ To use the Work Day Scheduler, follow these steps:
 - The application will automatically color-code tasks based on their time compared to the current time: past tasks are gray, the present task is red, and future tasks are green.
 - You can edit or update tasks at any time.
 - The current date is displayed at the top of the page.
+- Visual step by step guide: 
+![stepBystep](images/TitleTime.png)
+![stepBystep](images/DisplayCurrSave.png)
+![stepBystep](images//showsfuturegreen.png)
+
 
 ## Credits
 
