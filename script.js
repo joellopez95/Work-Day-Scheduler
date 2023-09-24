@@ -2,7 +2,6 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 var saveButton = $(".saveBtn");
-
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -16,8 +15,11 @@ $(function () {
     var timeBlock = $(this).parent();
     //got a handle on the id attr
     var timeBlockID = timeBlock.attr('id'); 
+    //how to obtain user input "find" in w3 schools
+    //val is used to call
+    var userInput = timeBlock.find('textarea').val();
 
-    localStorage.setItem(timeBlock, timeBlockID);
+    localStorage.setItem(timeBlockID, userInput);
   });
   //
   // TODO: Add code to apply the past, present, or future class to each time
@@ -29,14 +31,41 @@ $(function () {
   //dayjs current hour:
 
   var cHour = dayjs().hour() // gets current hour
+//each time block in our schedule
+$('.time-block').each(function(){
 
+  var timeBlockID = $(this).attr('id');
+  var timeBlockHour = parseInt(timeBlockID.split('-')[1]);
 
+  if(timeBlockHour < cHour) {
+    $(this).removeClass('present future').addClass('past');
+  } else if(timeBlockHour===cHour){
+    $(this).removeClass('past future').addClass('present');
+  }else{
+    $(this).removeClass('past present').addClass('future');
+  }
+  });
 
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  //
+  
+  function displayUserInput(){
+
+    $('.time-block').each(function(){
+      var timeBlockID = $(this).attr('id');
+      var savedData = localStorage.getItem(timeBlockID);
+      //to check if there is saved data
+      if(savedData !== null){
+        $(this).find('textarea').val(savedData);
+      }
+    });
+
+  }
+  displayUserInput();
+
+
   // TODO: Add code to display the current date in the header of the page.
   var today = dayjs();
 $('#currentDay').text(today.format('MMM D, YYYY'));
